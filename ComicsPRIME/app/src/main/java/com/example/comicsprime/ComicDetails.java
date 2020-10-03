@@ -75,7 +75,7 @@ public class ComicDetails extends AppCompatActivity {
                     details.setText("");
                 }
 
-                
+
             }
 
             @Override
