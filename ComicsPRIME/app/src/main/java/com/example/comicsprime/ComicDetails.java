@@ -70,9 +70,9 @@ public class ComicDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 comic = snapshot.getValue(Comic.class);
                 if(comic.isPartOfEvent()){
-                    details.setText(comic.getComicName() + " is a part of " + comic.getEventName() + " event. \n");
+                    details.setText(comic.getComicName() + " is a part of " + comic.getEventName() + " event. \n More details will be added soon");
                 }else{
-                    details.setText("");
+                    details.setText(comic.getComicName() + " is not a part of any event. \n More details will be added soon");
                 }
 
                 
