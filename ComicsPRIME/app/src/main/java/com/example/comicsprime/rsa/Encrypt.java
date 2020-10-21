@@ -5,7 +5,7 @@ import static java.lang.Math.pow;
 public class Encrypt {
 
     // Message to be encrypted
-    private double msg;
+    private double  msg;
 
 
     private static int gcd(int a, int h) {
