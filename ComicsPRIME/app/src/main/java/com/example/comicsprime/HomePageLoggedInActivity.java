@@ -2,6 +2,7 @@ package com.example.comicsprime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,6 +79,8 @@ public class HomePageLoggedInActivity extends AppCompatActivity implements title
         searchButton = (ImageButton) findViewById(R.id.search_btn);
 
         factsTextView = (TextView) findViewById(R.id.facts);
+        //SCROLL
+        factsTextView.setMovementMethod(new ScrollingMovementMethod());
 
         comicListView = (RecyclerView) findViewById(R.id.comic_recyclerView);
         comicListView.setHasFixedSize(true);
@@ -263,7 +266,7 @@ public class HomePageLoggedInActivity extends AppCompatActivity implements title
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
-            super.onBackPressed();
+            moveTaskToBack(true); //QUIT APP
         }
     }
 

@@ -29,6 +29,9 @@ public class AddComicsActivity extends AppCompatActivity {
 
     private static final String TAG = "AddComicsActivity";
 
+    String title_name = ""; //IF ACTIVITY OPENS FROM NOT HOME PAGE
+    String volume_name = "";   //IF ACTIVITY OPENS FROM NOT HOME PAGE
+
     Button btnAdd;
     TextView editTitle, editVolume, editIssue, editEvent;
     RadioGroup radioGroup;
@@ -63,8 +66,18 @@ public class AddComicsActivity extends AppCompatActivity {
 
         
         //GET DATA AND PASS TO INTENT
-        Bundle bundle = getIntent().getExtras();
+        Intent thisIntent = getIntent();
+        Bundle bundle = thisIntent.getExtras();
         final String username_2 = bundle.getString("username");
+        if (thisIntent.hasExtra("title_name")) {
+            title_name = bundle.getString("title_name");
+            editTitle.setText(title_name);
+        }
+        if (thisIntent.hasExtra("volume_name")) {
+            volume_name = bundle.getString("volume_name");
+            editVolume.setText(volume_name);
+        }
+
 
         //FIREBASE
 
@@ -130,7 +143,7 @@ public class AddComicsActivity extends AppCompatActivity {
 
                 }
 
-                openHomePageActivity(username_2);
+                openHomePageActivity(username_2, title_name, volume_name);
 
             }
         });
@@ -157,14 +170,47 @@ public class AddComicsActivity extends AppCompatActivity {
 
     //FOR OPENINIG OTHER PAGE
 
-    private void openHomePageActivity(String username_2){
-        Intent s = new Intent(getApplicationContext(), HomePageLoggedInActivity.class);
+    private void openHomePageActivity(String username_2, String title_name, String volume_name){
 
-        //PASS DATA
-        String username = username_2;
-        s.putExtra("username", username);
 
-        startActivity(s);
+
+
+        if(!title_name.isEmpty()){
+            if(!volume_name.isEmpty()){
+
+                Intent s = new Intent(getApplicationContext(), IssuesActivity.class);
+
+                //PASS DATA
+                String username = username_2;
+                s.putExtra("username", username);
+                s.putExtra("title_name",title_name);
+                s.putExtra("volume_name", volume_name);
+
+                startActivity(s);
+
+            }else{
+
+                Intent s = new Intent(getApplicationContext(), VolumesActivity.class);
+
+                //PASS DATA
+                String username = username_2;
+                s.putExtra("username", username);
+                s.putExtra("title_name",title_name);
+
+                startActivity(s);
+
+            }
+        }else{
+            Intent s = new Intent(getApplicationContext(), HomePageLoggedInActivity.class);
+
+            //PASS DATA
+            String username = username_2;
+            s.putExtra("username", username);
+
+            startActivity(s);
+        }
+
+
     }
 
 

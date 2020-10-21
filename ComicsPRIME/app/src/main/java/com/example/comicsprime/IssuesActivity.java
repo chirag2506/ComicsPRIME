@@ -2,6 +2,7 @@ package com.example.comicsprime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comicsprime.Adapters.issueRecyclerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,7 @@ public class IssuesActivity extends AppCompatActivity implements issueRecyclerAd
     private static final String TAG = "IssuesActivity";
     private static final int FACTS = 59;
 
+    FloatingActionButton addComicButtonIssue;
     androidx.appcompat.widget.Toolbar toolbarIssue;
     EditText searchEditTextIssue;
     ImageButton searchButtonIssue;
@@ -73,6 +76,8 @@ public class IssuesActivity extends AppCompatActivity implements issueRecyclerAd
         searchButtonIssue = (ImageButton) findViewById(R.id.search_btnIssue);
 
         factsTextViewIssue = (TextView) findViewById(R.id.factsIssue);
+        //SCROLL
+        factsTextViewIssue.setMovementMethod(new ScrollingMovementMethod());
 
         comicListViewIssue = (RecyclerView) findViewById(R.id.comic_recyclerViewIssue);
         comicListViewIssue.setHasFixedSize(true);
@@ -147,6 +152,26 @@ public class IssuesActivity extends AppCompatActivity implements issueRecyclerAd
 
             }
         });
+
+
+        //EDITS
+
+        addComicButtonIssue = (FloatingActionButton) findViewById(R.id.addComicIssue);
+
+        addComicButtonIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(getApplicationContext(), AddComicsActivity.class);
+
+                //PASS DATA
+                s.putExtra("username", username);
+                s.putExtra("title_name", title_name);
+                s.putExtra("volume_name", volume_name);
+
+                startActivity(s);
+            }
+        });
+
 
         //SEARCH BUTTON
 
@@ -232,7 +257,14 @@ public class IssuesActivity extends AppCompatActivity implements issueRecyclerAd
         if(drawerIssue.isDrawerOpen(GravityCompat.START)){
             drawerIssue.closeDrawer(GravityCompat.START);
         }else {
-            super.onBackPressed();
+            Intent intent = new Intent(this, VolumesActivity.class);
+
+            //PASS DATA
+            intent.putExtra("username", username);
+            intent.putExtra("title_name", title_name);
+
+
+            startActivity(intent);
         }
     }
 }

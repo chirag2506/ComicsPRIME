@@ -16,20 +16,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/factsIssue"
-            android:layout_width="match_parent"
-            android:layout_margin="16dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="5"
 
-            android:textSize="12sp"
+            android:text="FACTS"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="FACTS" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addComicIssue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="#66b5ad"
+            android:clickable="true"
+            android:tint="#ffffff"
+            app:maxImageSize="50dp"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
     </LinearLayout>
 

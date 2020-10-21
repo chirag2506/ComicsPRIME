@@ -2,6 +2,7 @@ package com.example.comicsprime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ public class VolumesActivity extends AppCompatActivity implements volumeRecycler
     private static final String TAG = "VolumesActivity";
     private static final int FACTS = 59;
 
+    FloatingActionButton addComicButtonVolume;
     androidx.appcompat.widget.Toolbar toolbarVolume;
     EditText searchEditTextVolume;
     ImageButton searchButtonVolume;
@@ -73,6 +75,8 @@ public class VolumesActivity extends AppCompatActivity implements volumeRecycler
         searchButtonVolume = (ImageButton) findViewById(R.id.search_btnVolume);
 
         factsTextViewVolume = (TextView) findViewById(R.id.factsVolume);
+        //SCROLL
+        factsTextViewVolume.setMovementMethod(new ScrollingMovementMethod());
 
         comicListViewVolume = (RecyclerView) findViewById(R.id.comic_recyclerViewVolume);
         comicListViewVolume.setHasFixedSize(true);
@@ -148,6 +152,24 @@ public class VolumesActivity extends AppCompatActivity implements volumeRecycler
 
             }
         });
+
+        //EDITS
+
+        addComicButtonVolume = (FloatingActionButton) findViewById(R.id.addComicVolume);
+
+        addComicButtonVolume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(getApplicationContext(), AddComicsActivity.class);
+
+                //PASS DATA
+                s.putExtra("username", username);
+                s.putExtra("title_name", title_name);
+
+                startActivity(s);
+            }
+        });
+
 
         //SEARCH BUTTON
 
@@ -233,7 +255,12 @@ public class VolumesActivity extends AppCompatActivity implements volumeRecycler
         if(drawerVolume.isDrawerOpen(GravityCompat.START)){
             drawerVolume.closeDrawer(GravityCompat.START);
         }else {
-            super.onBackPressed();
+            Intent intent = new Intent(this, HomePageLoggedInActivity.class);
+
+            //PASS DATA
+            intent.putExtra("username", username);
+
+            startActivity(intent);
         }
     }
 }
